@@ -1,0 +1,15 @@
+# render.yaml
+# File cấu hình để Render.com tự động triển khai
+
+services:
+  - type: web
+    name: playwright-fastapi-runner
+    env: python
+    plan: free # Bắt đầu với gói miễn phí
+    buildCommand: |
+      pip install -r requirements.txt
+      playwright install --with-deps chromium
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.4 # Chọn phiên bản Python
